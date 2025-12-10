@@ -4,13 +4,16 @@ import (
 	"log"
 	"github.com/gofiber/fiber/v2"
 	"github.com/dalhatmd/NaijaCancerCare/internal/config"
+	"github.com/dalhatmd/NaijaCancerCare/internal/database"
 )
 
 func main() {
 	app := fiber.New()
-	
+		
 	cfg := config.Load()
-
+	
+	db := database.Connect(cfg.DBUrl)
+	_ = db
 
 	app.Get("/health", func(c *fiber.Ctx) error {
 		return c.SendString("OK")
